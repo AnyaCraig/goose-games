@@ -1,9 +1,12 @@
 import React, { useState, useEffect, PropsWithChildren } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchGameData } from '../functions';
-import { Game } from '../functions';
-import './App.css';
+import { Game } from '../types';
 
-const Container = ({children }: PropsWithChildren) => {
+import './App.css';
+import { GameList } from './games/GameList';
+
+const App = () => {
 
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(false);
@@ -26,28 +29,17 @@ const Container = ({children }: PropsWithChildren) => {
       }
       setLoading(false);
     })();
-
   }, []);
 
-  console.log("GAMES!", games);
-  console.log("LOADING", loading);
-  console.log("ERROR", error);
+
 
   return (
     <>
-      {children}
+      <Link to={`/create-game`} state={{game: undefined, isNewGame: true }}>Add a new game!</Link>
+      <GameList games={games}/>
+ 
     </>
   ); 
 }
-
-function App() {
-  return (
-    <Container>
-      <p>Poop</p>
-    </Container>
-
-  );
-}
-
 
 export default App;

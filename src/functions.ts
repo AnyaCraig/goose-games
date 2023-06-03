@@ -1,40 +1,5 @@
-type GameType = "DEFAULT" | "RECREATIONAL" | "ONBOARDING" | "TOUR" | "TEAM_BUILDING";
-
-const GAMETYPE = {
-    recreational: "RECREATIONAL",
-    onboarding: "ONBOARDING",
-    tour: "TOUR",
-    teamBuilding: "TEAM_BUILDING",
-    default: "DEFAULT",
-} as const;
-  
-type GAMETYPE = typeof GAMETYPE[keyof typeof GAMETYPE];
-
-export interface RawGameData {
-    description: string;
-    id: number;
-    name: string;
-    photo?: string;
-    location?: string;
-    start_date?: string;
-    end_date?: string;
-    game_type?: GameType;
-    teams_enabled?: boolean;
-}
-
-export interface Game {
-    description: string;
-    id: number;
-    name: string;
-    photo: string;
-    location: string;
-    start_date: string | undefined;
-    end_date: string | undefined;
-    game_type: GameType;
-    teams_enabled: boolean;
-    is_currently_active: boolean;
-    is_completed: boolean;
-}
+import { gamesEndpoint } from "./constants";
+import { Game, RawGameData, GAMETYPE, GameId } from "./types";
 
 const determineIfGameActive = (startDate: string, endDate: string): boolean => {
   const rightNow = new Date();
@@ -65,11 +30,58 @@ const transformGameData = (rawData: RawGameData):Game => {
 
 export const fetchGameData = async (): Promise<Game[]> => {
   try {
-    const gamesResponse = await fetch("http://localhost:3000/games");
+    const gamesResponse = await fetch(gamesEndpoint);
     const responseBody = (await gamesResponse.json()) as RawGameData[];
     return responseBody.map((game) => transformGameData(game));
   } catch(err) {
-    console.log("ERR", err);
     throw new Error(`Here is an error: ${err}`);
   }
 };
+
+const getHeaders = () => {
+  const requestHeaders = new Headers();
+  requestHeaders.append('Content-Type', 'application/json');
+  return requestHeaders;
+}
+
+export const createOrUpdateGame = async (gameData: any, isNewGame = true): Promise<any> => {
+
+  const endpoint = isNewGame ? gamesEndpoint : `${gamesEndpoint}/${gameData.id}`;
+
+  const request = new Request(endpoint, {
+    method: "PUT",
+    headers: getHeaders(),
+    body: JSON.stringify(gameData),
+  });
+
+  // console.log(JSON.stringify(gameData));
+  // console.log("REQUEST", request, "isNew Game", isNewGame,);
+  
+  try {
+    const response = await fetch(request);
+    const result = await response.json();
+    console.log("Success:", result);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+export const deleteGame = async (gameId?: GameId): Promise<any> => {
+
+  const endpoint = `${gamesEndpoint}/${gameId}`;
+
+  const request = new Request(endpoint, {
+    method: "DELETE",
+    headers: getHeaders(),
+  });
+
+  try {
+    const response = await fetch(request);
+    const result = await response.json();
+    console.log("Success:", result);
+    return true;
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
