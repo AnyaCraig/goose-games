@@ -1,28 +1,27 @@
-import React, { useState, useEffect, PropsWithChildren } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchGameData } from '../functions';
-import { Game } from '../types';
+import React, { useState, useEffect, PropsWithChildren } from "react";
+import { Link } from "react-router-dom";
+import { fetchGameData } from "../functions";
+import { Game } from "../types";
 
-import './App.css';
-import { GameList } from './games/GameList';
+import "./App.css";
+import { GameList } from "./games/GameList";
+import { Header } from "./Header";
 
 const App = () => {
-
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | undefined>(undefined);
 
-  useEffect(() => {  
+  useEffect(() => {
     (async () => {
-
       setLoading(true);
 
-      try{
+      try {
         const gamesData = await fetchGameData();
         setGames(gamesData);
-      } catch(err) {
+      } catch (err) {
         if (err instanceof Error) {
-          setError(err)
+          setError(err);
         } else {
           setError(new Error(String(err)));
         }
@@ -31,15 +30,16 @@ const App = () => {
     })();
   }, []);
 
-
-
   return (
     <>
-      <Link to={`/create-game`} state={{game: undefined, isNewGame: true }}>Add a new game!</Link>
-      <GameList games={games}/>
- 
+      <Header>
+        <Link to={`/create-game`} state={{ game: undefined, isNewGame: true }}>
+          Add a new game!
+        </Link>
+      </Header>
+      <GameList games={games} />
     </>
-  ); 
-}
+  );
+};
 
 export default App;

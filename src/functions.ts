@@ -47,16 +47,14 @@ const getHeaders = () => {
 export const createOrUpdateGame = async (gameData: any, isNewGame = true): Promise<any> => {
 
   const endpoint = isNewGame ? gamesEndpoint : `${gamesEndpoint}/${gameData.id}`;
+  const method = isNewGame ? "POST" : "PUT";
 
   const request = new Request(endpoint, {
-    method: "PUT",
+    method: method,
     headers: getHeaders(),
     body: JSON.stringify(gameData),
   });
 
-  // console.log(JSON.stringify(gameData));
-  // console.log("REQUEST", request, "isNew Game", isNewGame,);
-  
   try {
     const response = await fetch(request);
     const result = await response.json();

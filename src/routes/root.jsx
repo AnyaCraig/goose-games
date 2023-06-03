@@ -1,6 +1,5 @@
 import {
     createBrowserRouter,
-    RouterProvider,
   } from "react-router-dom";
 import App from "../components/App";
 import { ErrorPage } from "../components/error-page/ErrorPage";
@@ -33,4 +32,4 @@ export const router = createBrowserRouter([
     element: <GameForm/>,
     errorElement: <ErrorPage/>,
   },
-  ]);
+]);
