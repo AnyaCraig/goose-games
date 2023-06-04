@@ -17,9 +17,7 @@ export const GameListItem = ({ game }: GameListItemProps) => {
   return (
     <Link to={`/games/${game.id}`} state={{ game: game }}>
       <div className={classList}>
-        <img
-          src={require(`${assetsFolder}${game.photo || defaultGameImage}`)}
-        />
+        <img src={`${assetsFolder}${game.photo || defaultGameImage}`} />
         <p>{game.name}</p>
         <p>{game.description}</p>
       </div>
