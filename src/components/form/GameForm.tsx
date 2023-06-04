@@ -12,6 +12,7 @@ export const GameForm = () => {
   const [gameName, setGameName] = useState("");
   const [gameDescription, setGameDescription] = useState("");
   const [gamePhoto, setGamePhoto] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!isNewGame && existingGameValues) {
@@ -25,7 +26,7 @@ export const GameForm = () => {
     setGamePhoto(existingFormValues.photo);
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const gameInfo = {
@@ -41,41 +42,47 @@ export const GameForm = () => {
       } else {
         await createOrUpdateGame(gameInfo, false);
       }
+      setError(false);
     } catch {
-      console.log("Oh god there was an error here");
+      setError(true);
     }
 
     navigate("/games");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="gameName">Game Name</label>
-      <input
-        name="exampleInput"
-        id="gameName"
-        value={gameName}
-        onChange={(e) => setGameName(e.target.value)}
-        required
-      />
+    <>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="gameName">Game Name</label>
+        <input
+          name="exampleInput"
+          id="gameName"
+          value={gameName}
+          onChange={(e) => setGameName(e.target.value)}
+          required
+        />
 
-      <label htmlFor="gameDescription">Game Description</label>
-      <textarea
-        name="gameDescription"
-        id="gameDescription"
-        value={gameDescription}
-        onChange={(e) => setGameDescription(e.target.value)}
-        required
-      />
+        <label htmlFor="gameDescription">Game Description</label>
+        <textarea
+          name="gameDescription"
+          id="gameDescription"
+          value={gameDescription}
+          onChange={(e) => setGameDescription(e.target.value)}
+          required
+        />
 
-      <label htmlFor="gamePhoto">Game Photo</label>
-      <input
-        name="gamePhoto"
-        id="gamePhoto"
-        value={gamePhoto}
-        onChange={(e) => setGamePhoto(e.target.value)}
-      />
-      <button type="submit">Submit</button>
-    </form>
+        <label htmlFor="gamePhoto">Game Photo</label>
+        <input
+          name="gamePhoto"
+          id="gamePhoto"
+          value={gamePhoto}
+          onChange={(e) => setGamePhoto(e.target.value)}
+        />
+        <button type="submit">Submit</button>
+      </form>
+      {error && (
+        <p>Oh no! Your game died on the way back to its home planet.</p>
+      )}
+    </>
   );
 };

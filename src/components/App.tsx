@@ -1,5 +1,6 @@
-import React, { useState, useEffect, PropsWithChildren } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { lightGrey, loadingGifUrl } from "../constants";
 import { fetchGameData } from "../functions";
 import { Game } from "../types";
 
@@ -18,6 +19,7 @@ const App = () => {
 
       try {
         const gamesData = await fetchGameData();
+        setError(undefined);
         setGames(gamesData);
       } catch (err) {
         if (err instanceof Error) {
@@ -30,15 +32,23 @@ const App = () => {
     })();
   }, []);
 
+  const wrapperClassList = `bg-[${lightGrey}]`;
+
   return (
-    <>
+    <div className={wrapperClassList}>
       <Header>
+        <Link to={`/`}>Home</Link>
+        <Link to={`/games`}>Your games</Link>
         <Link to={`/create-game`} state={{ game: undefined, isNewGame: true }}>
           Add a new game!
         </Link>
       </Header>
-      <GameList games={games} />
-    </>
+      <div className="max-w-md">
+        {loading && <img src={loadingGifUrl} alt="loading..." />}
+        {error && <p>Oh, fudge. We couldn't load the games for some reason.</p>}
+        <GameList games={games} />
+      </div>
+    </div>
   );
 };
 

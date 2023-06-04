@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { deleteGame } from "../../functions";
-import { GameId } from "../../types";
+import { deleteGame, fetchMissionData } from "../../functions";
+import { Mission } from "../../types";
+import { MissionList } from "../missions/MissionList";
 
 export const GameDetail = () => {
   const location = useLocation();
   const { game } = location.state;
+  const [missions, setMissions] = useState<Mission[]>([]);
+  const [error, setError] = useState<Error | undefined>(undefined);
 
   const navigate = useNavigate();
 
-  const handleDeleteClick = async (id: GameId) => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const missionData = await fetchMissionData(game.id);
+        setError(undefined);
+        setMissions(missionData);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err);
+        } else {
+          setError(new Error(String(err)));
+        }
+      }
+    })();
+  }, []);
+
+  const handleDeleteClick = async (id: number) => {
     await deleteGame(id);
     navigate("/games");
   };
@@ -18,6 +37,9 @@ export const GameDetail = () => {
     <>
       <p>{game.name}</p>
       <p>{game.description}</p>
+
+      <h3>Missions</h3>
+      <MissionList missions={missions} />
 
       <Link
         to={`/update-game/${game.id}`}

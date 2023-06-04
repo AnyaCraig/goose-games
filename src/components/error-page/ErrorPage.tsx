@@ -1,5 +1,3 @@
 export const ErrorPage = () => {
-    return (
-        <p>Error!</p>
-    )
-}
+  return <p>I don't know how you got here, but you are lost.</p>;
+};

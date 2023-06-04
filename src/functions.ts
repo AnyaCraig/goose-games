@@ -1,5 +1,5 @@
 import { gamesEndpoint } from "./constants";
-import { Game, RawGameData, GAMETYPE, GameId } from "./types";
+import { Game, RawGameData, GAMETYPE, Mission } from "./types";
 
 const determineIfGameActive = (startDate: string, endDate: string): boolean => {
   const rightNow = new Date();
@@ -34,7 +34,7 @@ export const fetchGameData = async (): Promise<Game[]> => {
     const responseBody = (await gamesResponse.json()) as RawGameData[];
     return responseBody.map((game) => transformGameData(game));
   } catch(err) {
-    throw new Error(`Here is an error: ${err}`);
+    throw new Error(`Oh gosh, something went wrong: ${err}`);
   }
 };
 
@@ -44,10 +44,10 @@ const getHeaders = () => {
   return requestHeaders;
 }
 
-export const createOrUpdateGame = async (gameData: any, isNewGame = true): Promise<any> => {
+export const createOrUpdateGame = async (gameData: Game, isNewGame = true) => {
 
   const endpoint = isNewGame ? gamesEndpoint : `${gamesEndpoint}/${gameData.id}`;
-  const method = isNewGame ? "POST" : "PUT";
+  const method = isNewGame ? "POST" : "PATCH";
 
   const request = new Request(endpoint, {
     method: method,
@@ -58,13 +58,14 @@ export const createOrUpdateGame = async (gameData: any, isNewGame = true): Promi
   try {
     const response = await fetch(request);
     const result = await response.json();
-    console.log("Success:", result);
+    console.log("You just successfully chucked this game up to the server:", result);
+    return result;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Oh, crud. This happened:", error);
   }
 }
 
-export const deleteGame = async (gameId?: GameId): Promise<any> => {
+export const deleteGame = async (gameId?: number) => {
 
   const endpoint = `${gamesEndpoint}/${gameId}`;
 
@@ -76,10 +77,20 @@ export const deleteGame = async (gameId?: GameId): Promise<any> => {
   try {
     const response = await fetch(request);
     const result = await response.json();
-    console.log("Success:", result);
+    console.log("This game gone now:", result);
     return true;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("We had some trouble deleting that:", error);
     return false;
   }
 }
+
+export const fetchMissionData = async (gameId: number): Promise<Mission[]> => {
+  try {
+    const missionsResponse = await fetch(`${gamesEndpoint}/${gameId}/missions`);
+    const responseBody = (await missionsResponse.json()) as Mission[];
+    return responseBody;
+  } catch(err) {
+    throw new Error(`Oh gosh, something went wrong getting the missions: ${err}`);
+  }
+};

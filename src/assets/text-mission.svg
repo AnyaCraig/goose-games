@@ -1,0 +1,18 @@
+<svg fill="none" version="1.1" viewBox="0 0 73 73" xmlns="http://www.w3.org/2000/svg">
+    <title>Text Mission</title>
+    <g transform="translate(95.1 -.8621)">
+        <path d="m-42.6 13.36h-40v56h40z" fill="#0c0a0c" stroke="#0c0a0c" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="m-34.6 5.362h-40v56h40z" fill="#b1faf6"/>
+        <g stroke="#0c0a0c" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m-68.6 24.36s3.4-3.87 5.85-12l4.15 12"/>
+            <path d="m-66.29 20.86s3.83 0.31 6.13-1.06"/>
+            <path d="m-68.6 31.36h20"/>
+            <path d="m-68.6 37.36h24"/>
+            <path d="m-68.6 43.36h24"/>
+            <path d="m-68.6 49.36h20"/>
+            <path d="m-68.6 55.36h14"/>
+            <path d="m-55.6 24.36s2.25-4 5-3.67 2.5 3.67 2.5 3.67 2.51-4 6.48-2.17"/>
+            <path d="m-42.6 5.362c0.9268 2.331 0.9695 4.92 0.12 7.28 0 0 4.53 1.62 7.88 0"/>
+        </g>
+    </g>
+</svg>

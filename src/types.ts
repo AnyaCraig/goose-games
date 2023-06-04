@@ -9,11 +9,9 @@ export const GAMETYPE = {
   
 export type GameType = typeof GAMETYPE[keyof typeof GAMETYPE];
 
-export type GameId = number | string;
-
 export interface RawGameData {
     description: string;
-    id: GameId;
+    id: number;
     name: string;
     photo?: string;
     location?: string;
@@ -25,7 +23,7 @@ export interface RawGameData {
 
 export interface Game {
     description: string;
-    id: GameId;
+    id: number;
     name: string;
     photo: string;
     location: string;
@@ -35,4 +33,27 @@ export interface Game {
     teams_enabled: boolean;
     is_currently_active: boolean;
     is_completed: boolean;
+}
+
+export const MISSIONCATEGORY = {
+  photoVideo: "photo+video",
+  text: "text",
+  gps: "gps",
+  default: "DEFAULT",
+} as const;
+
+export type MissionCategory = typeof MISSIONCATEGORY[keyof typeof MISSIONCATEGORY];
+
+export type MissionId = number;
+
+export interface Mission {
+  id: number;
+  game_id: number;
+  name: string;
+  description: string;
+  points: number;
+  category: MissionCategory;
+  latitude: number;
+  longitude: number;
+  location: string;
 }
