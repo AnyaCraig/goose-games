@@ -11,7 +11,6 @@ export const GameForm = () => {
 
   const [gameName, setGameName] = useState("");
   const [gameDescription, setGameDescription] = useState("");
-  const [gamePhoto, setGamePhoto] = useState("");
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -23,7 +22,6 @@ export const GameForm = () => {
   const populateExistingFormValues = (existingFormValues: Game) => {
     setGameName(existingFormValues.name);
     setGameDescription(existingFormValues.description);
-    setGamePhoto(existingFormValues.photo);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +31,6 @@ export const GameForm = () => {
       ...existingGameValues,
       name: gameName,
       description: gameDescription,
-      photo: gamePhoto,
     };
 
     try {
@@ -84,18 +81,7 @@ export const GameForm = () => {
           />
         </div>
 
-        <div className="label-input-group">
-          <label htmlFor="gamePhoto">Game Photo</label>
-          <input
-            name="gamePhoto"
-            id="gamePhoto"
-            value={gamePhoto}
-            onChange={(e) => setGamePhoto(e.target.value)}
-            className="form-input"
-          />
-        </div>
-
-        <div className="my-md">
+        <div>
           <button className="button button-jade" type="submit">
             Submit
           </button>
