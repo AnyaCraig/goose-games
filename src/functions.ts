@@ -1,11 +1,13 @@
-import { gamesEndpoint } from "./constants";
-import { Game, RawGameData, GAMETYPE, Mission } from "./types";
+import { gamesEndpoint, rawPhotoVideoMissionCategory } from "./constants";
+import { Game, RawGameData, GAMETYPE, Mission, MISSIONCATEGORY, RawMissionData, MissionCategory } from "./types";
 
+// resulting value could be used to filter games by active status
 const determineIfGameActive = (startDate: string, endDate: string): boolean => {
   const rightNow = new Date();
   return new Date(startDate) < rightNow && new Date(endDate) < rightNow;
 }
 
+// resulting value could be used to filter out completed games
 const determineIfGameComplete = (endDate: string) => {
   const rightNow = new Date();
   return new Date(endDate) < rightNow;
@@ -85,11 +87,18 @@ export const deleteGame = async (gameId?: number) => {
   }
 }
 
+const transformMissionData = (mission: RawMissionData):Mission => {
+  return {
+    ...mission,
+    category: mission.category === rawPhotoVideoMissionCategory ? MISSIONCATEGORY.photoVideo : mission.category as MissionCategory,
+  };
+}
+
 export const fetchMissionData = async (gameId: number): Promise<Mission[]> => {
   try {
     const missionsResponse = await fetch(`${gamesEndpoint}/${gameId}/missions`);
     const responseBody = (await missionsResponse.json()) as Mission[];
-    return responseBody;
+    return responseBody.map(mission => transformMissionData(mission));
   } catch(err) {
     throw new Error(`Oh gosh, something went wrong getting the missions: ${err}`);
   }

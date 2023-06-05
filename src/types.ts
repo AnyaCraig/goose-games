@@ -36,7 +36,7 @@ export interface Game {
 }
 
 export const MISSIONCATEGORY = {
-  photoVideo: "photo+video",
+  photoVideo: "photoVideo",
   text: "text",
   gps: "gps",
   default: "DEFAULT",
@@ -46,7 +46,20 @@ export type MissionCategory = typeof MISSIONCATEGORY[keyof typeof MISSIONCATEGOR
 
 export type MissionId = number;
 
-export interface Mission {
+export interface RawMissionData {
+  id: number;
+  game_id: number;
+  name: string;
+  description: string;
+  points: number;
+  category: string;
+  latitude: number;
+  longitude: number;
+  location: string;
+  accepted_answers: string[];
+}
+
+export interface Mission extends Omit<RawMissionData, 'category'> {
   id: number;
   game_id: number;
   name: string;
@@ -56,4 +69,5 @@ export interface Mission {
   latitude: number;
   longitude: number;
   location: string;
+  accepted_answers: string[];
 }

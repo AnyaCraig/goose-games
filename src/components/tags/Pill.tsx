@@ -1,16 +1,19 @@
 import { PropsWithChildren } from "react";
 
 interface PillProps {
-  color: string;
+  customClass: string;
 }
 
-export const Pill = ({ color, children }: PropsWithChildren<PillProps>) => {
-  const divClassList = ``;
-  const textClassList = ``;
+export const Pill = ({
+  customClass,
+  children,
+}: PropsWithChildren<PillProps>) => {
+  const divClassList = `${customClass} pt-pillTop pb-0 px-xxs mr-xs rounded-2xl self-start`;
+  const textClassList = `text-xs font-bold`;
 
   return (
-    <div className="">
-      <p className="">{children}</p>
+    <div className={divClassList}>
+      <p className={textClassList}>{children}</p>
     </div>
   );
 };

@@ -23,6 +23,7 @@
   },
   "include": [
     "src",
-    "types/images.d.ts"
+    "types/images.d.ts", 
+    "public/assets/icons.tsx"  
   ]
 }

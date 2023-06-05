@@ -7,10 +7,13 @@ interface GameListProps {
 
 export const GameList = ({ games }: GameListProps) => {
   return (
-    <div>
-      {games.map((game) => (
-        <GameListItem key={game.id} game={game} />
-      ))}
-    </div>
+    <section>
+      <h1>Your Games</h1>
+      <ul>
+        {games.map((game) => (
+          <GameListItem key={game.id} game={game} />
+        ))}
+      </ul>
+    </section>
   );
 };

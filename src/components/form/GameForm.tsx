@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 
 import { createOrUpdateGame } from "../../functions";
 import { Game } from "../../types";
@@ -52,33 +52,57 @@ export const GameForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="gameName">Game Name</label>
-        <input
-          name="exampleInput"
-          id="gameName"
-          value={gameName}
-          onChange={(e) => setGameName(e.target.value)}
-          required
-        />
+      <h1>{isNewGame ? "Create a Game" : "Update Your Game"}</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <div className="label-input-group">
+          <label htmlFor="gameName">Game Name</label>
+          <i aria-hidden="true">*</i>
+          <input
+            name="exampleInput"
+            id="gameName"
+            value={gameName}
+            onChange={(e) => setGameName(e.target.value)}
+            required
+            aria-required="true"
+            className="form-input"
+          />
+        </div>
 
-        <label htmlFor="gameDescription">Game Description</label>
-        <textarea
-          name="gameDescription"
-          id="gameDescription"
-          value={gameDescription}
-          onChange={(e) => setGameDescription(e.target.value)}
-          required
-        />
+        <div className="label-input-group">
+          <label htmlFor="gameDescription">
+            Game Description<i aria-hidden="true">*</i>
+          </label>
 
-        <label htmlFor="gamePhoto">Game Photo</label>
-        <input
-          name="gamePhoto"
-          id="gamePhoto"
-          value={gamePhoto}
-          onChange={(e) => setGamePhoto(e.target.value)}
-        />
-        <button type="submit">Submit</button>
+          <textarea
+            name="gameDescription"
+            id="gameDescription"
+            value={gameDescription}
+            onChange={(e) => setGameDescription(e.target.value)}
+            required
+            aria-required="true"
+            className="form-input"
+          />
+        </div>
+
+        <div className="label-input-group">
+          <label htmlFor="gamePhoto">Game Photo</label>
+          <input
+            name="gamePhoto"
+            id="gamePhoto"
+            value={gamePhoto}
+            onChange={(e) => setGamePhoto(e.target.value)}
+            className="form-input"
+          />
+        </div>
+
+        <div className="my-md">
+          <button className="button button-jade" type="submit">
+            Submit
+          </button>
+          <Link to={`/games`}>
+            <button className="button button-amber">Cancel</button>
+          </Link>
+        </div>
       </form>
       {error && (
         <p>Oh no! Your game died on the way back to its home planet.</p>

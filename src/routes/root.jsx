@@ -3,7 +3,7 @@ import {
   } from "react-router-dom";
 import App from "../components/App";
 import { ErrorPage } from "../components/error-page/ErrorPage";
-import { GameForm } from "../components/form/GameForm";
+import { FormPage } from "../components/form/FormPage";
 import { GameDetail } from "../components/games/GameDetail";
 
 export const router = createBrowserRouter([
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/create-game",
-    element: <GameForm/>,
+    element: <FormPage/>,
     errorElement: <ErrorPage/>,
   },
   {
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/update-game/:id",
-    element: <GameForm/>,
+    element: <FormPage/>,
     errorElement: <ErrorPage/>,
   },
 ]);

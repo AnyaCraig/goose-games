@@ -7,10 +7,13 @@ interface MissionListProps {
 
 export const MissionList = ({ missions }: MissionListProps) => {
   return (
-    <div className="">
-      {missions.map((mission) => (
-        <MissionListItem mission={mission} />
-      ))}
-    </div>
+    <>
+      <h2>Missions</h2>
+      <ul>
+        {missions.map((mission, i) => (
+          <MissionListItem key={i} mission={mission} />
+        ))}
+      </ul>
+    </>
   );
 };

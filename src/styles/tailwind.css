@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-offWhite;
+    @apply font-tajawal;
+    @apply text-black;
+  }
+
+  .main-content-wrapper {
+    @apply max-w-screen-lg;
+    @apply mx-auto;
+    @apply w-4/6;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-gabriela;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-2xl;
+    @apply mb-md;
+  }
+
+  h2 {
+    @apply text-xl;
+    @apply my-sm;
+  }
+
+  h3 {
+    @apply text-lg;
+    @apply my-xs;
+  }
+
+  h4 {
+    @apply text-base;
+    @apply my-xxs;
+  }
+
+  h5 {
+    @apply text-base;
+    @apply my-xxs;
+  }
+
+  h6 {
+    @apply text-base;
+    @apply my-xxs;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  .button {
+    @apply px-xs;
+    @apply pt-btnTop;
+    @apply pb-btnBtm;
+    @apply rounded;
+    @apply font-bold;
+    @apply mr-sm;
+    @apply min-w-[110px];
+  }
+
+  .button-jade {
+    @apply bg-jade;
+    @apply text-white;
+  }
+
+  .button-amber {
+    @apply bg-amber;
+    @apply text-black;
+  }
+
+  .text-mission-bg {
+    @apply bg-aqua;
+  }
+
+  .photoVideo-mission-bg {
+    @apply bg-amber;
+  }
+
+  .gps-mission-bg {
+    @apply bg-lilac;
+  }
+
+  .label-input-group {
+    @apply mb-md;
+  }
+
+  label {
+    @apply font-bold;
+  }
+
+  .form-input {
+    @apply block;
+    @apply border-black;
+    @apply border-solid;
+    @apply px-xxs;
+    @apply py-xxs;
+    @apply w-full;
+    @apply rounded;
+  }
+
+  .page-fill-wrapper {
+    min-height: calc(100vh - 50px);
+  }
+
+  .full-page-wrapper {
+    @apply flex;
+    @apply flex-col;
+    @apply min-h-screen;
+  }
+}

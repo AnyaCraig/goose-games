@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { lightGrey, loadingGifUrl } from "../constants";
+import { loadingGifUrl } from "../constants";
 import { fetchGameData } from "../functions";
 import { Game } from "../types";
 
 import "./App.css";
 import { GameList } from "./games/GameList";
-import { Header } from "./Header";
+import { Header } from "./header/Header";
 
 const App = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -32,19 +31,16 @@ const App = () => {
     })();
   }, []);
 
-  const wrapperClassList = `bg-[${lightGrey}]`;
-
   return (
-    <div className={wrapperClassList}>
-      <Header>
-        <Link to={`/`}>Home</Link>
-        <Link to={`/games`}>Your games</Link>
-        <Link to={`/create-game`} state={{ game: undefined, isNewGame: true }}>
-          Add a new game!
-        </Link>
-      </Header>
-      <div className="max-w-md">
-        {loading && <img src={loadingGifUrl} alt="loading..." />}
+    <div className="full-page-wrapper bg-lightGrey">
+      <Header />
+      <div className="main-content-wrapper pt-8">
+        {loading && (
+          <>
+            /* we could put a loading icon here, but with this small amount of
+            data, it's appears so briefly that it's jarring */
+          </>
+        )}
         {error && <p>Oh, fudge. We couldn't load the games for some reason.</p>}
         <GameList games={games} />
       </div>
