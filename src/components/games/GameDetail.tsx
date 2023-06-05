@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, redirect } from "react-router-dom";
 import { defaultGameImage } from "../../constants";
 import { deleteGame, fetchMissionData } from "../../functions";
 import { Mission } from "../../types";
+import { ErrorPage } from "../error-page/ErrorPage";
 import { Header } from "../header/Header";
 import { MissionList } from "../missions/MissionList";
 
 export const GameDetail = () => {
   const location = useLocation();
-  const { game } = location.state;
+  const [game] = useState(location?.state?.game);
   const [missions, setMissions] = useState<Mission[]>([]);
   const [error, setError] = useState<Error | undefined>(undefined);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,9 +35,9 @@ export const GameDetail = () => {
     navigate("/games");
   };
 
-  const gameImage = `assets/${game.photo || defaultGameImage}`;
+  const gameImage = `assets/${game?.photo || defaultGameImage}`;
 
-  return (
+  return game ? (
     <section className="full-page-wrapper bg-offWhite">
       <Header />
       <div className="main-content-wrapper grow pt-8">
@@ -64,5 +64,7 @@ export const GameDetail = () => {
         </div>
       </div>
     </section>
+  ) : (
+    <ErrorPage />
   );
 };
