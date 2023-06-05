@@ -1,6 +1,6 @@
 # Goose Games
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and developed by Anya Craig
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and developed by Anya Craig.
 
 ## To run this app
 
