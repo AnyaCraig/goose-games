@@ -12,9 +12,12 @@ npx json-server --watch db.json --routes routes.json
 
 Make sure the server is running on port 3000.
 
-Then, from the root of this project, run the following CLI command:
+Then, from the root of this project, run the following CLI commands:
 
 ```
+npm install
+
+
 npm start
 ```
 
