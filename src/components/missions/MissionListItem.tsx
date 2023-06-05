@@ -61,7 +61,7 @@ export const MissionListItem = ({ mission }: MissionListItemProps) => {
           className="w-full"
         />
       </div>
-      <div className="pl-xs">
+      <div className="pl-xs grow">
         <div className="flex justify-between content-start">
           <h3 className="mt-0">{mission.name}</h3>
           {!!mission.points && (
